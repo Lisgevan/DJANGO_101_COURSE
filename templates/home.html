@@ -1,5 +1,6 @@
 <!-- To connect to base.html -->
 {% extends "base.html" %}
+{% load thumbnail %}
 
 {% block title %}
 Home page
@@ -7,7 +8,13 @@ Home page
 
 {% block body %}
     {% for post in posts %}
+    <a href="{% url 'feed:detail' post.id%}">
         {{ post.text}}
+        <br>
+        {% thumbnail post.image "200x200"       crop="center" as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+        {% endthumbnail %}
+    </a>
         <hr>
     {% endfor %}
 {% endblock %}
